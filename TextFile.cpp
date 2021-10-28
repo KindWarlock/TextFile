@@ -36,7 +36,8 @@ bool TextFile::CheckStream(string stream)
 	return true;
 }
 
-tuple <int, int> TextFile::FindPos(string line, int column) {
+tuple <int, int> TextFile::FindPos(string line, int column) 
+{
 	int cnt = 0,
 		pos_start = 0,
 		str_length;
@@ -105,7 +106,6 @@ TextFile::TextFile(string dir, char mode)
 		cout << "Incorrect mode";
 		//exception
 	}
-	
 }
 
 TextFile::~TextFile()
@@ -135,13 +135,17 @@ void TextFile::CopyFile(TextFile cp_from)
 
 void TextFile::SortStrings(char mod, int column)
 {
+	// надо проверить на поток и, если придется, поменять
 	string line;
 	string *file_data = new string[CountLines()];
+	int i = 0;
+
 	int col_type = GetColumnType(column);
 	switch (col_type) {
 	case INT_ID:
 		while (getline(this->ifs_file, line)) {
 			// template Sort
+			file_data[i++] = line;
 			auto[pos_start, str_length] = FindPos(line, column);
 			string col_data = line.substr(pos_start, str_length);
 			stoi(col_data);
